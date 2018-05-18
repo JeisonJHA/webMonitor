@@ -1,0 +1,26 @@
+{
+  "name": "appmonitor",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "ajv": "^6.5.0",
+    "material-ui": "^0.20.0",
+    "react": "^16.3.2",
+    "react-bootstrap": "^0.32.1",
+    "react-bootstrap-treeview": "^0.1.0",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.4",
+    "react-sortable-tree": "^2.1.1",
+    "react-sortable-tree-theme-file-explorer": "^1.1.2",
+    "react-sortable-tree-theme-minimal": "0.0.13",
+    "react-transition-group": "^2.3.1",
+    "redux-logger": "^3.0.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
