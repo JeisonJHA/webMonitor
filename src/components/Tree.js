@@ -20,7 +20,7 @@ class Tree extends Component {
     this.setState({ consulta: node.consulta });
   }
   static getDerivedStateFromProps(props, state) {
-    // console.log('getDerivedStateFromProps', props)
+    console.log('getDerivedStateFromProps', props)
     // loadFileTree(props.treeData);
     var retorno = props.treeData;
     return {
@@ -55,7 +55,7 @@ class Tree extends Component {
             : 0,
       });
     return (
-      <Form hidden={this.props.hidden}>
+      <Form hidden={this.props.hidden} width='100%'>
         <FormGroup
           style={{ display: 'inline-block' }}
           onSubmit={event => {
@@ -68,10 +68,14 @@ class Tree extends Component {
                 onChange={event => this.setState({ searchString: event.target.value })} />
             </Col>
             <Col sm={4}>
-              <Button type="button" disabled={!searchFoundCount} onClick={selectPrevMatch}>
+              <Button type="button" disabled={!searchFoundCount} onClick={event => {
+                event.preventDefault(); selectPrevMatch();
+              }}>
                 &lt;
               </Button>
-              <Button type="submit" disabled={!searchFoundCount} onClick={selectNextMatch}>
+              <Button type="submit" disabled={!searchFoundCount} onClick={event => {
+                event.preventDefault(); selectNextMatch();
+              }}>
                 &gt;
               </Button>
               <span>
@@ -106,6 +110,7 @@ class Tree extends Component {
             theme={FileExplorerTheme}
             generateNodeProps={({ node, path }) => {
               var corTipo = '';
+              var corTexto = 'black';
               // console.log('nodo', node);
               // console.log('path', path);
               // var nodoAtual = this.state.treeData.find(x => {
@@ -124,10 +129,15 @@ class Tree extends Component {
               else if (nodoAtual.tipo === 'SQL') {
                 corTipo = 'orange';
               }
+              else if (nodoAtual.tipo === 'AVISO') {
+                corTipo = 'blue';
+                corTexto = 'white';
+              }
 
               return {
                 style: {
-                  background: `${corTipo.toLowerCase()}`
+                  background: `${corTipo.toLowerCase()}`,
+                  color: corTexto
                 },
                 buttons: [<button onClick={(event) => { event.preventDefault(); this.mostraConsulta(node) }}>i</button>]
               }
@@ -135,12 +145,12 @@ class Tree extends Component {
           />
           {/* <span class="Resizer vertical " style={{ cursor: 'col-resize', height: 'auto', width: '10px' }}></span> */}
           <div style={{ display: 'table-cell', width: '20%', class: 'Pane vertical' }}>
-            <form>
-              <FormGroup controlId="formControlsTextarea" >
-                <ControlLabel>Consulta</ControlLabel>
-                <FormControl componentClass="textarea" placeholder="textarea" value={this.state.consulta} />
-              </FormGroup>
-            </form>
+            {/* <form> */}
+            <FormGroup controlId="formControlsTextarea" >
+              <ControlLabel>Consulta</ControlLabel>
+              <FormControl componentClass="textarea" placeholder="textarea" value={this.state.consulta} height='100%' />
+            </FormGroup>
+            {/* </form> */}
           </div>
         </div >
       </Form >
@@ -151,10 +161,10 @@ class Tree extends Component {
 const mapStateToProps = store => {
   console.log('Tree', store);
   return {
-    // treeData: store.defineDadosTree.treeData,
-    // hidden: store.defineDadosTree.hiddentree
-    treeData: [],
+    treeData: store.defineDadosTree.treeData,
     hidden: store.defineDadosTree.hiddentree
+    // treeData: [],
+    // hidden: store.defineDadosTree.hiddentree
   }
 }
 

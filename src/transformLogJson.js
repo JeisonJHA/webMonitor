@@ -79,7 +79,7 @@ function loadFile(file, callback) {
                     case 4:
                         obj.chamada += '.' + padLeft(value, 2);
                         obj.nivel = padLeft(value, 2);
-                        obj.chave = obj.call + obj.nivel;
+                        // obj.chave = obj.call + obj.nivel;
                         break;
                     // case 5: obj.pool = value; break;
                     case 6: obj.tipo = value; break;
@@ -104,14 +104,16 @@ function loadFile(file, callback) {
                 }
                 cont++;
             }
+            // Definiç?o de ERRO no log de métodos
+            // spErro:= ConcatenaSe('S', ((spTipo = 'SAIDA') or(spTipo = 'AVISO')) and(spSQL <> '') and(spIDConexao <> 'NDA'));
             countMetodos(obj.classe, obj.metodo);
-            obj.childCalls = []
             // console.log(parentObj[parentObj.length - 1]);
             if (parentObj[parentObj.length - 1]) {
                 obj.parent = parentObj[parentObj.length - 1];
             } else {
                 obj.parent = null
             }
+            obj.hidden = obj.parent ? true : false
             defineChildCall(arrayResult, obj.parent, obj.call);
             if (obj.tipo === 'ENTRADA') {
                 parentObj.push(obj.call);

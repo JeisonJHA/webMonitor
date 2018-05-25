@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <div className='container'>
-        <TreeNode />
+        <TreeNode id={0} />
         <InputFile />
         <SelecaoAnalise />
         <Tree />
